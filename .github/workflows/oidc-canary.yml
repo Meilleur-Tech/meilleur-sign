@@ -43,12 +43,21 @@ jobs:
         shell: bash
         run: |
           set -euo pipefail
+          echo "CHECK_REPOSITORY"
           test "$GITHUB_REPOSITORY" = "Meilleur-Tech/meilleur-sign"
+          echo "CHECK_REPOSITORY_ID"
           test "$GITHUB_REPOSITORY_ID" = "1464223150"
+          echo "CHECK_BRANCH"
           test "$GITHUB_REF" = "refs/heads/main"
+          echo "CHECK_PROTECTED_REF"
           test "$GITHUB_REF_PROTECTED" = "true"
+          echo "CHECK_DISPATCH"
           test "$GITHUB_EVENT_NAME" = "workflow_dispatch"
-          test "$(cosign version --json | jq -r '.GitVersion')" = "v3.1.4"
+          echo "CHECK_COSIGN_VERSION"
+          version="$(cosign version --json | jq -r '.GitVersion // .gitVersion // .version // empty')"
+          printf 'CANARY_COSIGN_VERSION=%s\n' "$version"
+          test "$version" = "v3.1.4"
+          echo "CHECK_GIT_SHA_FORMAT"
           test "$(printf %s "$GITHUB_SHA" | wc -c | tr -d ' ')" -eq 40
           jq -cn --arg source "$GITHUB_SHA" --arg run "$GITHUB_RUN_ID" \
             '{schema:"meilleur-sign-oidc-canary/v1",

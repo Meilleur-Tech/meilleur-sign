@@ -1,7 +1,8 @@
 """Non-cryptographic regression contract for the public non-release OIDC canary.
 
-A mandatory independent reviewer is still required. These text checks do NOT
-constitute a security audit or prove a real GitHub-issued Fulcio certificate.
+Owner-authorized technical source review plus mandatory protected-main CI
+replace a human reviewer for this non-release canary. These tests do NOT
+constitute an independent audit or prove a real GitHub-issued certificate.
 """
 from pathlib import Path
 import re

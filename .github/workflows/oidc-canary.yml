@@ -1,5 +1,5 @@
 # Internal QA-only OIDC trust probe. This workflow cannot sign a release.
-# GitHub Free protected main, reviewed workflow, no private source or secrets.
+# GitHub Free protected main, reviewed workflow, no private source or sensitive data.
 name: Meilleur Sign - Protected OIDC Canary
 
 on:
